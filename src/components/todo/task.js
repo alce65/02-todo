@@ -1,11 +1,20 @@
-export function Task(props) {
+export function Task({ task, deleteTask, updateTask }) {
     function handleClick() {
-        props.deleteTask(props.task);
+        deleteTask(task);
+    }
+
+    function handleChange() {
+        updateTask(task);
     }
 
     return (
         <li>
-            <span>{props.task}</span>
+            <input
+                type="checkbox"
+                checked={task.isCompleted}
+                onChange={handleChange}
+            />
+            <span>{task.name}</span> -<span>{task.responsible}</span>
             <span onClick={handleClick}>🗑️</span>
         </li>
     );

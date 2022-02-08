@@ -1,30 +1,45 @@
 /* eslint-disable react/no-typos */
 import { useState } from 'react';
+import { Task } from '../../models/task';
 
 export function Add({ addTask }) {
-    const [newTask, setNewTask] = useState('Prueba');
+    const [newTask, setNewTask] = useState(new Task());
 
-    const handlerClick = () => {
+    const handleSubmit = (ev) => {
+        ev.preventDefault();
         console.log('Added task', newTask);
         addTask(newTask);
-        setNewTask('');
+        setNewTask(new Task());
     };
 
-    const handleInput = (ev) => {
-        setNewTask(ev.target.value);
-        // newTask= ev.target.value;
+    const handleChangeName = (ev) => {
+        setNewTask({ ...newTask, name: ev.target.value });
+    };
+
+    const handleChangeResp = (ev) => {
+        console.log();
+        setNewTask({ ...newTask, responsible: ev.target.value });
     };
 
     return (
         <>
             <h2>Add Tarea</h2>
-            <input
-                type="text"
-                placeholder="Nueva tarea"
-                value={newTask}
-                onInput={handleInput}
-            />
-            <button onClick={handlerClick}>Add</button>
+            <form onSubmit={handleSubmit}>
+                <input
+                    type="text"
+                    placeholder="Nombre de la tarea"
+                    value={newTask.name}
+                    onChange={handleChangeName}
+                    required
+                />
+                <input
+                    type="text"
+                    placeholder="Responsable de la de la tarea"
+                    value={newTask.responsible}
+                    onChange={handleChangeResp}
+                />
+                <button type="submit">Add</button>
+            </form>
         </>
     );
 }
