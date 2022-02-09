@@ -1,3 +1,5 @@
+import { Link } from 'react-router-dom';
+
 export function Task({ task, deleteTask, updateTask }) {
     function handleClick() {
         deleteTask(task);
@@ -14,8 +16,21 @@ export function Task({ task, deleteTask, updateTask }) {
                 checked={task.isCompleted}
                 onChange={handleChange}
             />
-            <span>{task.name}</span> -<span>{task.responsible}</span>
-            <span onClick={handleClick}>🗑️</span>
+            <Link to={`/detail/${task.id}`}>
+                <span className={task.isCompleted ? 'task-completed' : ''}>
+                    {task.name}
+                </span>{' '}
+                -<span>{task.responsible}</span>
+            </Link>
+
+            <div
+                role="button"
+                tabIndex={0}
+                onClick={handleClick}
+                onKeyPress={handleClick}
+            >
+                🗑️
+            </div>
         </li>
     );
 }

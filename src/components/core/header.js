@@ -6,7 +6,7 @@ export function Header({ mainTitle, menuOptions, children }) {
         <header className="app-header">
             <div>{mainTitle}</div>
             <p>{children}</p>
-            <Menu menuOptions={menuOptions}></Menu>
+            <Menu menuOptions={menuOptions} />
         </header>
     );
 }

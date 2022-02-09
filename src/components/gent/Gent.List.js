@@ -1,7 +1,8 @@
-import { useEffect, useState } from 'react';
-import Gentleman from './Gentelman';
 import './gentlist.css';
+import { useEffect, useState } from 'react';
+import { Gentleman } from './Gentelman';
 import { getData } from './models/gent.data';
+
 export default function GentList() {
     const [gentState, setGentState] = useState([]);
     const [countState, setCountState] = useState(0);
@@ -19,6 +20,7 @@ export default function GentList() {
     }, [gentState]);
 
     const selectGent = (id) => {
+        console.log('Selected', id);
         setGentState((prev) =>
             prev.map((item) => ({
                 ...item,

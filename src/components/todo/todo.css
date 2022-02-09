@@ -1,3 +1,7 @@
 .task-list {
     list-style: none;
 }
+
+.task-completed {
+    color: lime;
+}

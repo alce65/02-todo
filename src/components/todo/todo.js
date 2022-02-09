@@ -35,23 +35,22 @@ export function ToDo() {
     }); */
     return (
         <>
-            <Add addTask={addTask}></Add>
-            <h2>Lista de tareas</h2>
-            <p>Opción 1</p>
+            <Add addTask={addTask} />
+            {tasks.length ? <h2>Lista de tareas</h2> : ''}
             <ul className="task-list">
-                {tasks.map((task) => {
-                    return (
+                {tasks.map(
+                    (task) => (
                         <Task
                             task={task}
                             deleteTask={deleteTask}
                             updateTask={updateTask}
                             key={task.id}
-                        ></Task>
-                    );
+                        />
+                    )
                     // new Task({task:task, i: i})
                     // class Task {
                     //    constructor(props) {}
-                })}
+                )}
             </ul>
             {/* <p>Opción 2</p>
             <ul>{aTasks}</ul> */}
