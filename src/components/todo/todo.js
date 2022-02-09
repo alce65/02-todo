@@ -1,28 +1,33 @@
 import './todo.css';
-import { useState } from 'react';
-import { TASKS } from '../../models/tasks.data';
+import { useState, useEffect } from 'react';
 import { Add } from './add';
 import { Task } from './task';
+import * as store from '../../services/storage';
 
 export function ToDo() {
-    const [tasks, setTasks] = useState(TASKS);
+    const [tasks, setTasks] = useState([]);
+
+    useEffect(() => {
+        store.getTasks().then((data) => setTasks(data));
+    }, []);
 
     const addTask = (newTask) => {
-        setTasks([...tasks, newTask]);
+        const newTasks = [...tasks, newTask];
+        store.setTasks(newTasks).then(() => setTasks(newTasks));
     };
 
     const deleteTask = (task) => {
-        setTasks(tasks.filter((item) => item.id !== task.id));
+        const newTasks = tasks.filter((item) => item.id !== task.id);
+        store.setTasks(newTasks).then(() => setTasks(newTasks));
     };
 
     const updateTask = (task) => {
-        setTasks(
-            tasks.map((item) =>
-                item.id === task.id
-                    ? { ...item, isCompleted: !item.isCompleted }
-                    : item
-            )
+        const newTasks = tasks.map((item) =>
+            item.id === task.id
+                ? { ...item, isCompleted: !item.isCompleted }
+                : item
         );
+        store.setTasks(newTasks).then(() => setTasks(newTasks));
     };
 
     /* const aTasks = tasks.map((task, i) => {

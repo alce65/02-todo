@@ -12,13 +12,18 @@ export function Add({ addTask }) {
         setNewTask(new Task());
     };
 
-    const handleChangeName = (ev) => {
-        setNewTask({ ...newTask, name: ev.target.value });
-    };
-
-    const handleChangeResp = (ev) => {
-        console.log();
-        setNewTask({ ...newTask, responsible: ev.target.value });
+    const handleChange = (ev) => {
+        /* switch (ev.target.name) {
+            case 'name':
+                setNewTask({ ...newTask, name: ev.target.value });
+                break;
+            case 'responsible':
+                setNewTask({ ...newTask, responsible: ev.target.value });
+                break;
+            default:
+        } */
+        setNewTask({ ...newTask, [ev.target.name]: ev.target.value });
+        // setNewTask(newTask[ev.target.name] = ev.target.value);
     };
 
     return (
@@ -27,16 +32,18 @@ export function Add({ addTask }) {
             <form onSubmit={handleSubmit}>
                 <input
                     type="text"
+                    name="name"
                     placeholder="Nombre de la tarea"
                     value={newTask.name}
-                    onChange={handleChangeName}
+                    onChange={handleChange}
                     required
                 />
                 <input
                     type="text"
+                    name="responsible"
                     placeholder="Responsable de la de la tarea"
                     value={newTask.responsible}
-                    onChange={handleChangeResp}
+                    onChange={handleChange}
                 />
                 <button type="submit">Add</button>
             </form>
