@@ -3,6 +3,7 @@ import { Routes, Route } from 'react-router-dom';
 import { Header } from './components/core/header';
 import { Footer } from './components/core/footer';
 import { ToDo } from './components/todo/todo';
+import { GentlemenPage } from './components/gent/Gentlemen.Page';
 import { About } from './components/about/about';
 
 export function App() {
@@ -11,6 +12,7 @@ export function App() {
     const brand = 'ISDI Coders';
     const menuOptions = [
         { path: '/home', label: 'Inicio' },
+        { path: '/gents', label: 'Gentelmans' },
         { path: '/about', label: 'Nosotros' },
     ];
     return (
@@ -23,6 +25,10 @@ export function App() {
                     {/* Antes Switch */}
                     <Route path="/" element={<ToDo />} />
                     <Route path="/home" element={<ToDo />}></Route>
+                    <Route
+                        path="/gents"
+                        element={<GentlemenPage></GentlemenPage>}
+                    />
                     <Route path="/about" element={<About></About>} />
                     <Route path="*" element={<ToDo />} />
                 </Routes>
