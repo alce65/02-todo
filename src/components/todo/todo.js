@@ -2,7 +2,6 @@ import './todo.css';
 import { useState, useEffect } from 'react';
 import { Add } from './add';
 import { Task } from './task';
-import * as store from '../../services/storage';
 import * as api from '../../services/api';
 
 export function ToDo() {
