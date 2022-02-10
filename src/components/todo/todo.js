@@ -3,31 +3,52 @@ import { useState, useEffect } from 'react';
 import { Add } from './add';
 import { Task } from './task';
 import * as store from '../../services/storage';
+import * as api from '../../services/api';
 
 export function ToDo() {
     const [tasks, setTasks] = useState([]);
 
     useEffect(() => {
-        store.getTasks().then((data) => setTasks(data));
+        api.getAll().then((resp) => {
+            console.log(resp);
+            return setTasks(resp.data);
+        });
     }, []);
 
     const addTask = (newTask) => {
-        const newTasks = [...tasks, newTask];
-        store.setTasks(newTasks).then(() => setTasks(newTasks));
+        // const newTasks = [...tasks, newTask];
+        // store.setTasks(newTasks).then(() => setTasks(newTasks));
+        api.set(newTask).then((resp) => {
+            setTasks([...tasks, resp.data]);
+        });
     };
 
     const deleteTask = (task) => {
-        const newTasks = tasks.filter((item) => item.id !== task.id);
-        store.setTasks(newTasks).then(() => setTasks(newTasks));
+        // const newTasks = tasks.filter((item) => item.id !== task.id);
+        // store.setTasks(newTasks).then(() => setTasks(newTasks));
+        api.remove(task.id).then((resp) => {
+            if (resp.status === 200) {
+                setTasks(tasks.filter((item) => item.id !== task.id));
+            }
+        });
     };
 
     const updateTask = (task) => {
-        const newTasks = tasks.map((item) =>
+        /* const newTasks = tasks.map((item) =>
             item.id === task.id
                 ? { ...item, isCompleted: !item.isCompleted }
                 : item
         );
-        store.setTasks(newTasks).then(() => setTasks(newTasks));
+        store.setTasks(newTasks).then(() => setTasks(newTasks)); */
+        api.update(task).then((resp) => {
+            setTasks(
+                tasks.map((item) =>
+                    item.id === resp.data.id
+                        ? { ...item, isCompleted: !item.isCompleted }
+                        : item
+                )
+            );
+        });
     };
 
     /* const aTasks = tasks.map((task, i) => {

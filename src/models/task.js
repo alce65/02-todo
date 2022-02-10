@@ -8,7 +8,7 @@ export class Task {
     isCompleted;
 
     constructor(name = '', responsible = '') {
-        this.id = parseInt(Math.random() * 1_000_000_000, 10);
+        // this.id = parseInt(Math.random() * 1_000_000_000, 10);
         this.name = name;
         this.responsible = responsible;
         this.isCompleted = false;
